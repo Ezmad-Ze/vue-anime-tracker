@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router'
 import Nav from '@/components/AsideNav.vue'
 import { type Ref, ref } from 'vue'
+import SearchInput from './components/SearchInput.vue';
 
 
 const showAside: Ref<boolean> = ref(JSON.parse(localStorage.getItem('aside') || 'false'))

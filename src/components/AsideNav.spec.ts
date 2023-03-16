@@ -1,32 +1,23 @@
 import { describe, it, expect, vi } from 'vitest'
-import { mount, shallowMount } from '@vue/test-utils'
+import { fireEvent, render, screen, waitFor } from '@testing-library/vue'
+import '@testing-library/jest-dom'
 import AsideNav from './AsideNav.vue'
+import { shallowMount } from '@vue/test-utils'
 
 vi.mock('vue-router')
 
 describe('aside-nav.vue', () => {
-  it('should render hamburger icon', async () => {
-    const wrapper = mount(AsideNav, {
+  it('should render items', async () => {
+    const { getByRole } = render(AsideNav, {
       props: {
         aside: true
       }
     })
-
-    const icon = wrapper.find('#icon-ham')
-    expect(icon.exists()).toBe(false)
+    expect(screen.getByRole('nav')).toBeInTheDocument()
+    expect(screen.getByTestId('darkMode')).toBeInTheDocument()
+    expect(screen.getByRole('aside')).toBeInTheDocument()
+    expect(screen.getByTestId('closeIcon')).toBeInTheDocument()
   })
-
-  it('should nav elements', () => {
-    const wrapper = mount(AsideNav)
-    expect(wrapper.find('nav').exists()).toBe(true)
-  })
-
-  it('should render div elements', () => {
-    const wrapper = mount(AsideNav)
-
-    expect(wrapper.find('#aside-div').exists()).toBe(true)
-  })
-
   it('should render route paths', () => {
     const wrapper = shallowMount(AsideNav)
 
@@ -37,31 +28,29 @@ describe('aside-nav.vue', () => {
     expect(links.at(1)?.props().to).toBe('/anime/favorite')
     expect(links.at(2)?.props().to).toBe('/anime/tbw')
   })
-
   it('should toggle theme', async () => {
-    const wrapper = mount(AsideNav)
+    render(AsideNav)
 
-    expect(wrapper.find('#icon-moon').isVisible()).toBe(true)
+    expect(screen.getByTestId('darkMode')).toBeInTheDocument()
 
-    await wrapper.find('#icon-moon').trigger('click')
+    await fireEvent.click(screen.getByTestId('darkMode'))
 
-    expect(wrapper.find('#icon-sun').isVisible()).toBe(true)
+    expect(screen.getByTestId('lightMode')).toBeInTheDocument()
 
-    await wrapper.find('#icon-sun').trigger('click')
+    await fireEvent.click(screen.getByTestId('lightMode'))
 
-    expect(wrapper.find('#icon-moon').isVisible()).toBe(true)
+    expect(screen.getByTestId('darkMode')).toBeInTheDocument()
   })
+  it('should toggle aside', async () => {
+    render(AsideNav)
 
-  it('should be hidden when clicked', async () => {
-    const wrapper = mount(AsideNav)
+    expect(screen.getByRole('aside')).toBeInTheDocument()
+    expect(screen.getByTestId('closeIcon')).toBeInTheDocument()
 
-    expect(wrapper.find('#aside-div').isVisible()).toBe(true)
+    fireEvent.click(screen.getByTestId('closeIcon'))
 
-    wrapper.find('#close-icon').trigger('click')
-
-    // Wait for the next tick of the Vue.js event loop to allow any state changes to take effect
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.find('#icon-ham').isVisible()).toBe(true)
+    waitFor(() => {
+      expect(screen.getByTestId('hamIcon')).toBeInTheDocument()
+    })
   })
 })
