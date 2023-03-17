@@ -2,8 +2,6 @@
 import { RouterView } from 'vue-router'
 import Nav from '@/components/AsideNav.vue'
 import { type Ref, ref } from 'vue'
-import SearchInput from './components/SearchInput.vue';
-
 
 const showAside: Ref<boolean> = ref(JSON.parse(localStorage.getItem('aside') || 'false'))
 
@@ -19,7 +17,10 @@ const handleHide = (): void => {
 </script>
 
 <template>
-  <div role="body" class="font-poppins bg-light-bg dark:bg-dark-bg bg-cover bg-no-repeat h-screen">
+  <div
+    role="body"
+    class="font-poppins bg-light-bg dark:bg-dark-bg bg-cover bg-no-repeat h-screen overflow-y-auto"
+  >
     <header>
       <Nav :showAside="showAside" @handleHide="handleHide" @handleShow="handleShow" />
     </header>

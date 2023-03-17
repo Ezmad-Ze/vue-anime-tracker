@@ -10,7 +10,7 @@ describe('Search Input', () => {
     expect(screen.getByRole('form')).toBeInTheDocument()
     expect(screen.getByRole('searchbox')).toBeInTheDocument()
   })
-  
+
   it('should get value from input box', async () => {
     const { emitted } = render(SearchInput)
     const $inputbox = screen.getByRole('searchbox')

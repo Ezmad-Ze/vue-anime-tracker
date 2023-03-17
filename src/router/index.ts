@@ -16,7 +16,7 @@ const router = createRouter({
     },
     {
       path: '/anime/favorite',
-      name: 'details',
+      name: 'favorite',
       component: () => import('../views/FavoriteView.vue')
     },
     {

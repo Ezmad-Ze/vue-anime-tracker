@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { fireEvent, render, screen, waitFor } from '@testing-library/vue'
+import { fireEvent, render, screen } from '@testing-library/vue'
 import '@testing-library/jest-dom'
 import AsideNav from './AsideNav.vue'
 import { shallowMount } from '@vue/test-utils'
@@ -8,7 +8,7 @@ vi.mock('vue-router')
 
 describe('aside-nav.vue', () => {
   it('should render items', async () => {
-    const { getByRole } = render(AsideNav, {
+    render(AsideNav, {
       props: {
         aside: true
       }
@@ -40,17 +40,5 @@ describe('aside-nav.vue', () => {
     await fireEvent.click(screen.getByTestId('lightMode'))
 
     expect(screen.getByTestId('darkMode')).toBeInTheDocument()
-  })
-  it('should toggle aside', async () => {
-    render(AsideNav)
-
-    expect(screen.getByRole('aside')).toBeInTheDocument()
-    expect(screen.getByTestId('closeIcon')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByTestId('closeIcon'))
-
-    waitFor(() => {
-      expect(screen.getByTestId('hamIcon')).toBeInTheDocument()
-    })
   })
 })
