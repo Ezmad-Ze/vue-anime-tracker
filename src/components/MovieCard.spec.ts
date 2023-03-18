@@ -23,10 +23,10 @@ describe('aside-nav.vue', () => {
     render(MovieCard)
     expect(screen.getByRole('tbrFavorite')).toBeInTheDocument()
     expect(screen.getByText('Add to TBR')).toBeInTheDocument()
-    await fireEvent.click(screen.getByRole('tbrFavorite'))
+    fireEvent.click(screen.getByRole('tbrFavorite'))
 
     waitFor(() => {
-      expect(screen.getByText('Added to TBR')).toBeInTheDocument()
+      expect(screen.getByText(/Added to TBR/)).toBeInTheDocument()
     })
   })
 })

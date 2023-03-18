@@ -6,6 +6,7 @@
       v-if="searchResults.length > 0"
     >
       <MovieCard
+        data-testid="movieCard"
         @tbrHandler="addToTbr"
         @favoriteHandler="addAnimeToFavorite"
         v-for="searchResult in searchResults"
@@ -14,7 +15,7 @@
       />
     </div>
   </div>
-  <RouterView />
+  <RouterView v-model:favorite="myFavoriteAnime" v-model:myTBRanime="myTBRanime" />
 </template>
 
 <script setup lang="ts">

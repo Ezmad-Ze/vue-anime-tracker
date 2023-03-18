@@ -6,6 +6,7 @@
         class="w-7/12 max-w-[900px] min-w-[300px] h-12 pl-6 rounded-xl focus:outline-none outline outline-blue-900"
         role="searchbox"
         type="text"
+        placeholder="Search for anime..."
         :value="modelValue"
         @input="updateValue"
       />
