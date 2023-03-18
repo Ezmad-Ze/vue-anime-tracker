@@ -11,11 +11,15 @@
         @favoriteHandler="addAnimeToFavorite"
         v-for="searchResult in searchResults"
         :searchResult="searchResult"
-        :key="searchResult.mal_id"
+        :key="searchResult?.mal_id"
       />
     </div>
   </div>
-  <RouterView v-model:favorite="myFavoriteAnime" v-model:myTBRanime="myTBRanime" />
+  <RouterView
+    @tbrHandler="addToTbr"
+    @favoriteHandler="addAnimeToFavorite"
+    v-model="searchResults"
+  />
 </template>
 
 <script setup lang="ts">
@@ -32,8 +36,6 @@ defineProps({
 //variables
 const searchInput = ref('')
 const searchResults: Ref<Anime[]> = ref([])
-const myFavoriteAnime: Ref<Anime[]> = ref([])
-const myTBRanime: Ref<Anime[]> = ref([])
 
 //methods
 const searchAnime = (val: string) => {
@@ -41,34 +43,58 @@ const searchAnime = (val: string) => {
   fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      searchResults.value = res.data
+      const responseArray = res.data.map((r: any) => ({
+        ...r,
+        favorite: false,
+        tbr: false
+      }))
+
+      //replace the response with localstorage values
+      const fav = updateArrayFromLocalStorage(responseArray, 'myFav').filter(
+        (t: Anime) => t.favorite === true
+      )
+      const tbw = updateArrayFromLocalStorage(responseArray, 'myTBW').filter(
+        (t: Anime) => t.tbr === true
+      )
+      const both = [...fav, ...tbw]
+
+      const updatedArr = responseArray.map((obj: any) => {
+        const match = both.find((o) => o.mal_id === obj.mal_id)
+        return match ? match : obj
+      })
+
+      searchResults.value = updatedArr
     })
 }
 
-const addAnimeToFavorite = (anime: Anime) => {
-  anime.favorite = !anime.favorite
-
-  if (anime.favorite && !anime.tbr) {
-    myFavoriteAnime.value.push(anime)
-  } else {
-    const index = myFavoriteAnime.value.findIndex((i) => i.mal_id === anime.mal_id)
-    if (index !== -1) {
-      myFavoriteAnime.value.splice(index, 1)
+//replace arrays from localstorage values
+function updateArrayFromLocalStorage(array: any, localStorageKey: any) {
+  return array.map((obj: any) => {
+    const localStorageItem = window.localStorage.getItem(localStorageKey)
+    if (localStorageItem) {
+      const parsedLocalStorageItem = JSON.parse(localStorageItem)
+      const matchingObject = parsedLocalStorageItem.find((item: any) => item.mal_id === obj.mal_id)
+      if (matchingObject) {
+        return matchingObject
+      }
     }
-  }
+    return obj
+  })
 }
 
+//toogle favorite
+const addAnimeToFavorite = (anime: Anime) => {
+  anime.favorite = !anime.favorite
+  localStorage.setItem(
+    'myFav',
+    JSON.stringify(searchResults.value.filter((t) => t.favorite === true))
+  )
+}
+
+//toggle tbw
 const addToTbr = (anime: Anime) => {
   anime.tbr = !anime.tbr
-
-  if (anime.tbr) {
-    myTBRanime.value.push(anime)
-  } else {
-    const index = myTBRanime.value.findIndex((i) => i.mal_id === anime.mal_id)
-    if (index !== -1) {
-      myTBRanime.value.splice(index, 1)
-    }
-  }
+  localStorage.setItem('myTBW', JSON.stringify(searchResults.value.filter((t) => t.tbr === true)))
 }
 
 //watch
