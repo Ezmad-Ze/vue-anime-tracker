@@ -15,30 +15,30 @@
       />
     </div>
   </div>
-  <RouterView
-    @tbrHandler="addToTbr"
-    @favoriteHandler="addAnimeToFavorite"
-    v-model="searchResults"
-  />
 </template>
 
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import type Anime from '@/models'
-import { onMounted, ref, watchEffect, type Ref } from 'vue'
+import { onMounted, ref, watchEffect, type PropType } from 'vue'
 
 //props
 defineProps({
-  showAside: Boolean
+  showAside: Boolean,
+  searchResults: {
+    type: Array as PropType<Anime[]>,
+    required: true
+  }
 })
 
+const emit: (event: 'update-result' | 'addAnimeToFavorite' | 'addToTbr', ...args: any[]) => void =
+  defineEmits(['update-result', 'addAnimeToFavorite', 'addToTbr'])
 //variables
 const searchInput = ref('')
-const searchResults: Ref<Anime[]> = ref([])
 
 //methods
-const searchAnime = (val: string) => {
+const searchAnime = (val: string): void => {
   const url = `https://api.jikan.moe/v4/anime?q=${val}`
   fetch(url)
     .then((res) => res.json())
@@ -63,17 +63,19 @@ const searchAnime = (val: string) => {
         return match ? match : obj
       })
 
-      searchResults.value = updatedArr
+      emit('update-result', updatedArr)
     })
 }
 
 //replace arrays from localstorage values
-function updateArrayFromLocalStorage(array: any, localStorageKey: any) {
-  return array.map((obj: any) => {
+const updateArrayFromLocalStorage = (array: Anime[], localStorageKey: string): Anime[] => {
+  return array.map((obj: Anime) => {
     const localStorageItem = window.localStorage.getItem(localStorageKey)
     if (localStorageItem) {
       const parsedLocalStorageItem = JSON.parse(localStorageItem)
-      const matchingObject = parsedLocalStorageItem.find((item: any) => item.mal_id === obj.mal_id)
+      const matchingObject = parsedLocalStorageItem.find(
+        (item: Anime) => item.mal_id === obj.mal_id
+      )
       if (matchingObject) {
         return matchingObject
       }
@@ -82,21 +84,15 @@ function updateArrayFromLocalStorage(array: any, localStorageKey: any) {
   })
 }
 
-//toogle favorite
-const addAnimeToFavorite = (anime: Anime) => {
-  anime.favorite = !anime.favorite
-  localStorage.setItem(
-    'myFav',
-    JSON.stringify(searchResults.value.filter((t) => t.favorite === true))
-  )
+//toggle favorite
+const addAnimeToFavorite = (anime: Anime): void => {
+  emit('addAnimeToFavorite', anime)
 }
 
 //toggle tbw
-const addToTbr = (anime: Anime) => {
-  anime.tbr = !anime.tbr
-  localStorage.setItem('myTBW', JSON.stringify(searchResults.value.filter((t) => t.tbr === true)))
+const addToTbr = (anime: Anime): void => {
+  emit('addToTbr', anime)
 }
-
 //watch
 watchEffect(() => {
   searchAnime(searchInput.value)

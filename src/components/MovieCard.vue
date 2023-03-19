@@ -89,17 +89,20 @@ defineProps({
 })
 
 //emits
-const emit = defineEmits(['favoriteHandler', 'tbrHandler'])
-const handleFavorite: (val: Anime) => void = (val: Anime) => {
+const emit: (event: 'favoriteHandler' | 'tbrHandler', ...args: any[]) => void = defineEmits([
+  'favoriteHandler',
+  'tbrHandler'
+])
+const handleFavorite = (val: Anime): void => {
   emit('favoriteHandler', val)
 }
 
-const handelTBR = (val: Anime) => {
+const handelTBR = (val: Anime): void => {
   emit('tbrHandler', val)
 }
 
 //method
-const gotoDetails = (id: number) => {
+const gotoDetails = (id: number): void => {
   router.push({
     name: 'details',
     params: {

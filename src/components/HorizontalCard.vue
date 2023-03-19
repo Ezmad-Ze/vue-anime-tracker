@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import type Anime from '@/models';
-import type { PropType } from 'vue';
+import type Anime from '@/models'
+import type { PropType } from 'vue'
 
 defineProps({
   searchResult: Object as PropType<Anime>
