@@ -3,7 +3,7 @@
     <SearchInput v-model="searchInput" />
     <div
       class="flex flex-wrap items-start justify-center gap-4 max-w-[1200px]"
-      v-if="searchResults.length > 0"
+      v-if="searchResults?.length > 0"
     >
       <MovieCard
         data-testid="movieCard"
