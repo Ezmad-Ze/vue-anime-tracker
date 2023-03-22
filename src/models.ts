@@ -1,18 +1,3 @@
-//models
-// export default interface Anime {
-//   mal_id: number
-//   title: string
-//   images: {
-//     jpg: {
-//       image_url: string
-//     }
-//   }
-//   episodes: number
-//   watched_episodes: number
-//   favorite: boolean
-//   tbr: boolean
-// }
-
 export default interface Anime {
   mal_id: number
   url: string
@@ -143,4 +128,136 @@ export default interface Anime {
   watched_episodes: number
   favorite: boolean
   tbr: boolean
+}
+
+export let intialize: Anime = {
+  mal_id: 0,
+  url: '',
+  images: {
+    jpg: {
+      image_url: '',
+      small_image_url: '',
+      large_image_url: ''
+    },
+    webp: {
+      image_url: '',
+      small_image_url: '',
+      large_image_url: ''
+    }
+  },
+  trailer: {
+    youtube_id: '',
+    url: '',
+    embed_url: ''
+  },
+  approved: true,
+  titles: [
+    {
+      type: '',
+      title: ''
+    }
+  ],
+  title: '',
+  title_english: '',
+  title_japanese: '',
+  title_synonyms: [''],
+  type: '',
+  source: '',
+  episodes: 0,
+  status: '',
+  airing: true,
+  aired: {
+    from: '',
+    to: '',
+    prop: {
+      from: {
+        day: 0,
+        month: 0,
+        year: 0
+      },
+      to: {
+        day: 0,
+        month: 0,
+        year: 0
+      },
+      string: ''
+    }
+  },
+  duration: '',
+  rating: '',
+  score: 0,
+  scored_by: 0,
+  rank: 0,
+  popularity: 0,
+  members: 0,
+  favorites: 0,
+  synopsis: '',
+  background: '',
+  season: '',
+  year: 0,
+  broadcast: {
+    day: '',
+    time: '',
+    timezone: '',
+    string: ''
+  },
+  producers: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  licensors: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  studios: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  genres: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  explicit_genres: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  themes: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  demographics: [
+    {
+      mal_id: 0,
+      type: '',
+      name: '',
+      url: ''
+    }
+  ],
+  watched_episodes: 0,
+  favorite: false,
+  tbr: false
 }

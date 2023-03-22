@@ -9,7 +9,8 @@
       <h3 class="text-blue-800 dark:text-white font-bold text-xl mb-5">To be Watched</h3>
     </div>
     <div class="flex flex-col justify-center items-center" v-if="tbws.length > 0">
-      <TbwHorizontalCard v-for="tbw in tbws" :key="tbw.mal_id" :tbw="tbw" @tbwHandler="addAnimeToTbw" data-testid="horizontal-card"/>
+      <TbwHorizontalCard v-for="tbw in tbws" :key="tbw.mal_id" :tbw="tbw" @tbwHandler="addAnimeToTbw"
+        data-testid="horizontal-card" />
     </div>
     <div class="flex flex-col justify-center items-center bg-black dark:bg-white dark:bg-opacity-20 bg-opacity-20 rounded"
       v-else>
@@ -31,11 +32,11 @@ defineProps({
   showAside: Boolean,
 })
 
-//toggle favorite
+//toggle tbw
 const addAnimeToTbw = (anime: Anime): void => {
-  anime.favorite = !anime.favorite
+  anime.tbr = !anime.tbr
   localStorage.setItem(
-    'myFav',
+    'myTBW',
     JSON.stringify(tbws.value.filter((t: Anime) => t.tbr === true))
   )
 }
