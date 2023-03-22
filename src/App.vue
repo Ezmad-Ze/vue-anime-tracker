@@ -2,10 +2,8 @@
 import { RouterView } from 'vue-router'
 import Nav from '@/components/AsideNav.vue'
 import { type Ref, ref, reactive } from 'vue'
-import type Anime from './models';
-import { intialize } from './models';
-
-
+import type Anime from './models'
+import { intialize } from './models'
 
 const showAside: Ref<boolean> = ref(JSON.parse(localStorage.getItem('aside') || 'false'))
 const searchResults: Ref<Anime[]> = ref([])
@@ -42,7 +40,7 @@ const addToTbr = (anime: Anime): void => {
 
 const searchAnime = (val: string | number): void => {
   let url
-  if (typeof val === "string") {
+  if (typeof val === 'string') {
     url = `https://api.jikan.moe/v4/anime?q=${val}`
 
     fetch(url)
@@ -67,38 +65,31 @@ const searchAnime = (val: string | number): void => {
           const match = both.find((o) => o.mal_id === obj.mal_id)
           return match ? match : obj
         })
-        
+
         searchResults.value = updatedArr
       })
-  }
-  else if (typeof val === "number") {
+  } else if (typeof val === 'number') {
     url = `https://api.jikan.moe/v4/anime/${val}`
 
     fetch(url)
       .then((res) => res.json())
       .then((res) => {
-
-
         const response = {
-          ...res.data, favorite: false,
+          ...res.data,
+          favorite: false,
           tbr: false
         }
 
-
-        let myLocalStorageFav = JSON.parse(localStorage.getItem('myFav') || '[]');
-        let myLocalStorageTbw = JSON.parse(localStorage.getItem('myTBW') || '[]');
+        let myLocalStorageFav = JSON.parse(localStorage.getItem('myFav') || '[]')
+        let myLocalStorageTbw = JSON.parse(localStorage.getItem('myTBW') || '[]')
         let both = [...myLocalStorageFav, ...myLocalStorageTbw]
 
-
         let newResponse = compareObjects(both, response)
-
 
         foundResult.intialize = newResponse
       })
   }
-
 }
-
 
 //replace arrays from localstorage values
 const updateArrayFromLocalStorage = (array: Anime[], localStorageKey: string): Anime[] => {
@@ -119,25 +110,34 @@ const updateArrayFromLocalStorage = (array: Anime[], localStorageKey: string): A
 
 //replace objects from local storage
 const compareObjects = (array: Anime[], obj: Anime) => {
-  let result = obj;
+  let result = obj
 
   array.forEach((item: Anime) => {
     if (item.mal_id === obj.mal_id) {
-      result = item;
+      result = item
     }
-  });
+  })
 
-  return result;
+  return result
 }
 </script>
 
 <template>
-  <div role="body" class="font-poppins bg-light-bg dark:bg-dark-bg bg-cover bg-no-repeat h-screen overflow-y-auto">
+  <div
+    role="body"
+    class="font-poppins bg-light-bg dark:bg-dark-bg bg-cover bg-no-repeat h-screen overflow-y-auto"
+  >
     <header>
       <Nav :showAside="showAside" @handleHide="handleHide" @handleShow="handleShow" />
     </header>
-    <RouterView :showAside="showAside" @searchAnime="searchAnime" :searchResults="searchResults"
-      :foundResult="foundResult" @update-result="updateRes" @addAnimeToFavorite="addAnimeToFavorite"
-      @addToTbr="addToTbr" />
+    <RouterView
+      :showAside="showAside"
+      @searchAnime="searchAnime"
+      :searchResults="searchResults"
+      :foundResult="foundResult"
+      @update-result="updateRes"
+      @addAnimeToFavorite="addAnimeToFavorite"
+      @addToTbr="addToTbr"
+    />
   </div>
 </template>

@@ -26,7 +26,7 @@ describe('aside-nav.vue', () => {
     fireEvent.click(screen.getByRole('tbrFavorite'))
 
     waitFor(() => {
-      expect(screen.getByText('/Added to TBR/')).toBeInTheDocument()
+      expect(screen.getByText(/Added to TBR/)).toBeInTheDocument()
     })
   })
 })

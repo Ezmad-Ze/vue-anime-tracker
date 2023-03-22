@@ -1,9 +1,18 @@
 <template>
   <div class="m-5" :class="showAside ? 'md:ml-10' : 'md:ml-[30%]'">
     <SearchInput v-model="searchInput" />
-    <div class="flex flex-wrap items-start justify-center gap-4 max-w-[1200px]" v-if="searchResults?.length > 0">
-      <MovieCard data-testid="movieCard" @tbrHandler="addToTbr" @favoriteHandler="addAnimeToFavorite"
-        v-for="searchResult in searchResults" :searchResult="searchResult" :key="searchResult?.mal_id" />
+    <div
+      class="flex flex-wrap items-start justify-center gap-4 max-w-[1200px]"
+      v-if="searchResults?.length > 0"
+    >
+      <MovieCard
+        data-testid="movieCard"
+        @tbrHandler="addToTbr"
+        @favoriteHandler="addAnimeToFavorite"
+        v-for="searchResult in searchResults"
+        :searchResult="searchResult"
+        :key="searchResult?.mal_id"
+      />
     </div>
   </div>
 </template>
@@ -23,13 +32,13 @@ defineProps({
   }
 })
 
-const emit: (event: 'update-result' | 'addAnimeToFavorite' | 'addToTbr' | 'searchAnime', ...args: any[]) => void =
-  defineEmits(['update-result', 'addAnimeToFavorite', 'addToTbr', 'searchAnime'])
+const emit: (
+  event: 'update-result' | 'addAnimeToFavorite' | 'addToTbr' | 'searchAnime',
+  ...args: any[]
+) => void = defineEmits(['update-result', 'addAnimeToFavorite', 'addToTbr', 'searchAnime'])
 
-  //variables
+//variables
 const searchInput = ref('')
-
-
 
 //toggle favorite
 const addAnimeToFavorite = (anime: Anime): void => {
@@ -48,6 +57,5 @@ watchEffect(() => {
 //mount
 onMounted(() => {
   emit('searchAnime', searchInput.value)
-
 })
 </script>
