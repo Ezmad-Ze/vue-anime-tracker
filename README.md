@@ -6,11 +6,11 @@
 
 <div align="center">
   <h3>
-    <a href="#" color="white">
+    <a href="https://chimerical-kulfi-9f5064.netlify.app/" color="white">
       Live
     </a>
     <span> | </span>
-    <a href="#">
+    <a href="https://github.com/Ezmad-Ze/vue-anime-tracker">
       Solution
     </a>
 
