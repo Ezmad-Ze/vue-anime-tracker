@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import DetailsComp from '@/components/DetailsComponent.vue'
 import type Anime from '@/models'
-import { onMounted, ref, watchEffect, type PropType } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

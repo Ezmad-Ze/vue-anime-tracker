@@ -1,46 +1,51 @@
-# vue-anime
+# <h1 align="center">**Anime Tracker using vue**</h1>
 
-This template should help get you started developing with Vue 3 in Vite.
+<p align="center"><code>Vue</code>, <code>Typescript</code>, <code>Tailwind</code>, <code>Vite</code></p>
 
-## Recommended IDE Setup
+![Anime Tracker](screenshots/Anime%20Tracker.png)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<div align="center">
+  <h3>
+    <a href="#" color="white">
+      Live
+    </a>
+    <span> | </span>
+    <a href="#">
+      Solution
+    </a>
 
-## Type Support for `.vue` Imports in TS
+  </h3>
+</div>
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+<br/>
+<br/>
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## About The Project
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+The challenge is to build out an anime tracker that saves inside the local storage
 
-## Customize configuration
+Users should be able to:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Change theme
+- Save to favorite and to to be watched
+- Check Saved items
+- See hover and focus states for all interactive elements on the page
 
-## Project Setup
+## Built with
 
-```sh
-npm install
-```
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [Jikan API](https://api.jikan.moe/v4/anime/{id}) - Anime API
+- [Vue JS](https://vuejs.org/guide/introduction.html) - JS library
+- [Typescript](https://www.typescriptlang.org/)
 
-### Compile and Hot-Reload for Development
+## Useful Rescources
 
-```sh
-npm run dev
-```
+- [To use the anime API](https://www.youtube.com/watch?v=yf7ShkmaNNE)
 
-### Type-Check, Compile and Minify for Production
+## Author
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- Website - [Ezmad_Ze](https://ezmad.pages.dev/)

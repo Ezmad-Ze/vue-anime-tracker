@@ -130,7 +130,7 @@ export default interface Anime {
   tbr: boolean
 }
 
-export let intialize: Anime = {
+export const intialize: Anime = {
   mal_id: 0,
   url: '',
   images: {

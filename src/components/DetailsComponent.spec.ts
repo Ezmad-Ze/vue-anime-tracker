@@ -1,5 +1,5 @@
 import { describe, expect, vi } from 'vitest'
-import { fireEvent, render, screen, waitFor } from '@testing-library/vue'
+import { render, screen } from '@testing-library/vue'
 import '@testing-library/jest-dom'
 import DetailsComponent from './DetailsComponent.vue'
 
