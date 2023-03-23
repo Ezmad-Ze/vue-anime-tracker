@@ -6,7 +6,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://chimerical-kulfi-9f5064.netlify.app/" color="white">
+    <a href="https://chimerical-kulfi-9f5064.netlify.app" color="white">
       Live
     </a>
     <span> | </span>
